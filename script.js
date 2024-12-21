@@ -18,35 +18,67 @@ document.addEventListener('DOMContentLoaded', () => {
                     totalParts++; // Increment the total parts count
 
                     console.log(`Loading part: ${partIndex}`); // Log part before incrementing
+                    renderDataPart(partData); // Render this part as soon as it's loaded
                 } else {
                     throw new Error('File not found');
                 }
             } catch (err) {
                 console.log(`No more parts to load. Total parts loaded: ${totalParts}`);
-
                 break; // Exit the loop when no more parts are found
             }
+
             updateProgressBar(partIndex - 1, totalParts); // Update progress bar with the current part count
-            
             partIndex++;  // Increment partIndex after each attempt
-            
         }
+
         updateProgressBar(totalParts, totalParts); // Final update to 100%
     
         return data;
     };
+
+    // Function to render a data part immediately after it's fetched
+    const renderDataPart = (partData) => {
+        const content = document.getElementById('content');
+        
+        partData.forEach(item => {
+            const section = document.createElement('section');
+            section.classList.add('subfolder-section'); // Add a class for styling
+
+            // Split the text into individual lines and filter out empty lines
+            const musicList = item.text.split('\n')
+                .filter(Boolean)  // Removes empty lines
+                .map(music => `<li>${music}</li>`) // Wrap each item in a <li>
+                .join('');
+
+            // Create the HTML for each subfolder (name, image, and music list)
+            section.innerHTML = `
+                <h2>${item.name}</h2>
+                <img src="${item.image}" alt="${item.name}" loading="lazy">
+                <h3>Musics:</h3>
+                <ul>${musicList}</ul>
+            `;
+
+            content.appendChild(section);
+        });
+    };
+
     const showCompletionMessage = () => {
         const progressText = document.getElementById('progress-text');
-        progressText.textContent = "CONTEÚDOS CARREGADOS!";
+        if (progressText) {  // Check if the element exists before updating it
+            progressText.textContent = "CONTEÚDOS CARREGADOS!";
+        }
     };
+
     // Update the progress bar
     const updateProgressBar = (current, total) => {
         const progressBar = document.getElementById('progress-bar');
         const progressText = document.getElementById('progress-text');
         
-        const percent = (current / total) * 100;
-        progressBar.value = percent;
-        progressText.textContent = `${Math.round(percent)}% Loaded`;
+        if (progressBar && progressText) {  // Ensure both elements exist before updating
+            const percent = (current / total) * 100;
+            progressBar.value = percent;
+            progressText.textContent = `${Math.round(percent)}% Loaded`;
+        }
     };
 
     // Fetch and process all data parts
@@ -66,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const end = page * entriesPerPage;
                 const pageData = data.slice(start, end);
 
-                showCompletionMessage
+                showCompletionMessage();  // Display completion message
                 content.innerHTML = ''; // Clear current content
 
                 pageData.forEach(item => {
