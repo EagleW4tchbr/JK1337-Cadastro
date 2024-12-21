@@ -16,21 +16,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     const partData = await response.json();
                     data.push(...partData); // Merge the data from each part
                     totalParts++; // Increment the total parts count
+
                     console.log(`Loading part: ${partIndex}`); // Log part before incrementing
                 } else {
                     throw new Error('File not found');
                 }
             } catch (err) {
                 console.log(`No more parts to load. Total parts loaded: ${totalParts}`);
+
                 break; // Exit the loop when no more parts are found
             }
-            partIndex++;  // Increment partIndex after each attempt
             updateProgressBar(partIndex - 1, totalParts); // Update progress bar with the current part count
+            
+            partIndex++;  // Increment partIndex after each attempt
+            
         }
-
+        updateProgressBar(totalParts, totalParts); // Final update to 100%
+    
         return data;
     };
-
+    const showCompletionMessage = () => {
+        const progressText = document.getElementById('progress-text');
+        progressText.textContent = "CONTEÚDOS CARREGADOS!";
+    };
     // Update the progress bar
     const updateProgressBar = (current, total) => {
         const progressBar = document.getElementById('progress-bar');
@@ -58,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const end = page * entriesPerPage;
                 const pageData = data.slice(start, end);
 
+                showCompletionMessage
                 content.innerHTML = ''; // Clear current content
 
                 pageData.forEach(item => {
