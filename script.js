@@ -1,26 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Function to fetch all JSON parts and merge them
+    // Function to fetch all JSON parts dynamically
     const fetchAllData = async () => {
         const data = [];
         let partIndex = 1;
-        const totalParts = 5; // Modify this to the number of parts your data has
-        
-        // Continue fetching files as long as they exist
-        while (partIndex <= totalParts) {
+        let totalParts = 0;
+
+        // Attempt to fetch parts one by one
+        while (true) {
             try {
-                const response = await fetch(`data_cadastro/data_part_${partIndex}.json`);
-                if (!response.ok) throw new Error('File not found');
-                
-                const partData = await response.json();
-                data.push(...partData); // Merge the data from each part
-                partIndex++;
-                console.log(`Loading part: ${partIndex}`);
-                updateProgressBar(partIndex, totalParts); // Update progress bar
+                const fileName = `data_cadastro/data_part_${partIndex}.json`;
+                const response = await fetch(fileName);
+
+                // If the response is OK, parse and append the data
+                if (response.ok) {
+                    const partData = await response.json();
+                    data.push(...partData); // Merge the data from each part
+                    totalParts++; // Increment the total parts count
+                    console.log(`Loading part: ${partIndex}`); // Log part before incrementing
+                } else {
+                    throw new Error('File not found');
+                }
             } catch (err) {
-                console.log(`No more parts found or error: ${err.message}`);
-                break;
+                console.log(`No more parts to load. Total parts loaded: ${totalParts}`);
+                break; // Exit the loop when no more parts are found
             }
+            partIndex++;  // Increment partIndex after each attempt
+            updateProgressBar(partIndex - 1, totalParts); // Update progress bar with the current part count
         }
+
         return data;
     };
 
@@ -80,12 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Update the page navigation buttons
                 document.getElementById('prev-page').disabled = currentPage === 1;
                 document.getElementById('next-page').disabled = currentPage === totalPages;
+                document.getElementById('prev-page-bottom').disabled = currentPage === 1;
+                document.getElementById('next-page-bottom').disabled = currentPage === totalPages;
             };
 
             // Initial render
             renderPage(currentPage);
 
-            // Handle next page button
+            // Handle next page button (top)
             document.getElementById('next-page').addEventListener('click', () => {
                 if (currentPage < totalPages) {
                     currentPage++;
@@ -93,8 +102,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Handle previous page button
+            // Handle previous page button (top)
             document.getElementById('prev-page').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage(currentPage);
+                }
+            });
+
+            // Handle next page button (bottom)
+            document.getElementById('next-page-bottom').addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPage(currentPage);
+                }
+            });
+
+            // Handle previous page button (bottom)
+            document.getElementById('prev-page-bottom').addEventListener('click', () => {
                 if (currentPage > 1) {
                     currentPage--;
                     renderPage(currentPage);
