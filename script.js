@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const partData = await response.json();
                 data.push(...partData); // Merge the data from each part
                 partIndex++;
+                console.log(`Loading parts: `+partIndex);
             } catch (err) {
                 // Break the loop if no more files are found
                 console.log(`No more parts found. Error: ${err.message}`);
