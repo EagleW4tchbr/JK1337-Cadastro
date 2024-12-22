@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Site</title>
+    <title>JK1337 Cadastros</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="buttons.css">
+    <link rel="stylesheet" href="content.css">
+
+
 </head>
 <body>
     <header>
+        <button id="home-button" title="Return to First Page">
+            <img src="images/home_64.png" alt="Home" />
+        </button>
         <h1>JK1337 Cadastros</h1>
+        <div id="letter-nav"></div>
     </header>
 
-    <!-- Pagination at the top -->
-    <nav id="pagination-top" style="text-align: center; margin-bottom: 20px;">
-        <button id="prev-page" disabled>Previous</button>
-        <button id="next-page">Next</button>
+   <!-- Pagination at the top -->
+    <nav id="pagination-top">
+        <button id="prev-page" disabled>&larr; Voltar</button>
+        <button id="next-page">Próxima Página &rarr;</button>
     </nav>
 
+    
+
+
     <main id="content">
-        <p>CARREGANDO CONTEÚDOS...</p>
+        <p>CARREGANDO CADASTROS...</p>
         <div id="progress-bar-container">
             <progress id="progress-bar" value="0" max="100"></progress>
-            <p id="progress-text">0% Loaded</p>
+            <p id="progress-text"></p>
         </div>
     </main>
 
     
 
-    <!-- Pagination at the bottom -->
-    <nav id="pagination" style="text-align: center; margin-top: 20px;">
-        <button id="prev-page-bottom" disabled>Previous</button>
-        <button id="next-page-bottom">Next</button>
+    <nav id="pagination-bottom">
+        <button id="prev-page-bottom" disabled>&larr; Voltar</button>
+        <button id="next-page-bottom">Próxima Página &rarr;</button>
     </nav>
 
     <footer>
