@@ -1,0 +1,60 @@
+/* General Button Styles */
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hover Effect */
+button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+
+}
+
+/* Disabled State */
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+/* Pagination Button Styles */
+#pagination-top button,
+#pagination-bottom button {
+    margin: 0 30px; /* Add spacing between buttons */
+}
+
+/* Pagination Containers */
+#pagination-top,
+#pagination-bottom {
+    margin: 50px 0;
+    text-align: center;
+    margin-top: 200px; /* Increase this value to move the buttons lower */
+}
+
+/* Home Button */
+#home-button {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: -20px;
+    bottom: 0%;
+   
+}
+
+#home-button img {
+    width: 50px;
+    height: 50px;
+}
+
+#home-button:hover img {
+    filter: brightness(5.2); /* Brighten the icon on hover */
+    
+}
+
+

@@ -1,0 +1,32 @@
+.subfolder-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center; /* Centers the text, including the folder name */
+}
+
+.subfolder-section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px; /* Adds some spacing between the image and the name */
+}
+
+.subfolder-section h2 {
+    margin: 10px 0; /* Adjust spacing around the folder name */
+}
+
+.subfolder-section ul {
+    text-align: left; /* Keeps the music list aligned to the left */
+    list-style-type: disc; /* Optional: ensures the list has bullets */
+    padding-left: 20px; /* Optional: indents the list items */
+    margin-top: 10px; /* Adds some spacing between the music list and the content above */
+}
+
+.subfolder-section h3 {
+    text-align: center; /* Aligns the "Musics:" heading to the left */
+    width: 100%; /* Ensures the alignment applies to the whole section width */
+    margin-top: 10px;
+}
