@@ -37,7 +37,7 @@ button:disabled {
 
 /* Home Button */
 #home-button {
-    position: relative;
+    
     background: none;
     border: none;
     cursor: pointer;
@@ -48,6 +48,7 @@ button:disabled {
 }
 
 #home-button img {
+    
     width: 50px;
     height: 50px;
 }
@@ -57,4 +58,30 @@ button:disabled {
     
 }
 
+/* For very small screens, further adjust text size */
+@media (max-width: 480px) {
+    #letter-nav {
+        
+        font-size: 12px; /* Even smaller font size */
+    }
+    
+    
+}
+
+/* Prevent text overflow in the navbar */
+#letter-nav {
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: scroll; /* Hide overflow text */
+    text-overflow: clip; /* Show '...' when text overflows */
+    margin-left: 70px;
+}
+
+/* Ensure responsive behavior for the navbar */
+#letter-nav a {
+   
+    display: inline-block; /* Keep items in a horizontal line by default */
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white; /* Make sure text is readable */
+}
 
