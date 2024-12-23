@@ -64,7 +64,17 @@ button:disabled {
         
         font-size: 12px; /* Even smaller font size */
     }
+    #home-button img {
     
+        width: 32px;
+        height: 32px;
+    }
+
+    header h1 {
+    
+        font-size: 22px;
+        
+    }
     
 }
 
